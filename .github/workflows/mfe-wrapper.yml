@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - "mfe-wrapper/**"
+  workflow_dispatch:     
 
 env:
   VITE_BASE_URL: ${{ secrets.VITE_BASE_URL }}
