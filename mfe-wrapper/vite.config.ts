@@ -12,9 +12,9 @@ export default defineConfig({
         federation({
             name: 'wrapper-app',
             remotes: {
-                movies: "http://localhost:5001/assets/moviesRemoteEntry.js",
+                movies: "https://dd1ky85nk0bdj.cloudfront.net/assets/moviesRemoteEntry.js",
                 angularApp: {
-                    external: 'http://localhost:4201/remoteEntry.js',
+                    external: 'https://d39bjhmby8eto2.cloudfront.net/remoteEntry.js',
                     externalType: 'url',
                     format: 'var',
                 }
