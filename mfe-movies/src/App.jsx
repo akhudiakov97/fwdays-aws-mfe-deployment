@@ -5,7 +5,7 @@ import "./App.css";
 function App() {
     return (
         <div className="app">
-            <h1 className="main-title">Top rated movies !!</h1>
+            <h1 className="main-title">Top rated movies !!!</h1>
             <div className="content-wrapper">
                 <div className="movies-section">
                     <Movies />
