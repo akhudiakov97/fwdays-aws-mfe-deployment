@@ -1,15 +1,25 @@
+import {useState} from "react"
+
+//Для наївної аутентифікації і захисту навігації
+export const isAuthenticated = () => {
+    return false;
+}
+
+//Використання React hook для аутентифікації і захисту навігації
 export const useAuth = () => {
-    const signIn = () => {
-        localStorage.setItem("isAuthenticated", "true");
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+    const login = () => {
+        setIsAuthenticated(true);
     };
 
-    const signOut = () => {
-        localStorage.removeItem("isAuthenticated");
+    const logout = () => {
+        setIsAuthenticated(false);
     };
 
-    const isLogged = () => localStorage.getItem("isAuthenticated") === "true";
-
-    return { signIn, signOut, isLogged };
-};
-
-export type AuthContext = ReturnType<typeof useAuth>;
+    return {
+        isAuthenticated,
+        login,
+        logout,
+    }
+}

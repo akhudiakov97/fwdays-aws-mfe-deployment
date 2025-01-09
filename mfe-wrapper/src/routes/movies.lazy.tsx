@@ -1,17 +1,21 @@
-// movies.jsx
-import { createLazyFileRoute } from "@tanstack/react-router";
+import {createLazyFileRoute} from '@tanstack/react-router'
 import React from "react";
 
-const MoviesLazy = React.lazy(() => import("movies/Movies"));
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-expect-error
+const MoviesLazy = React.lazy(()=> import("movies/Movies"))
 
-export const Movies = () => {
-  return (
-    <div className="movies-container">
-      <MoviesLazy />
-    </div>
-  );
-};
+//Створюємо lazy route для виключення його з первинного бандлу і завантаження on-demand
+export const Route = createLazyFileRoute('/movies')({
+    component: RouteComponent,
+})
 
-export const Route = createLazyFileRoute("/movies")({
-  component: Movies,
-});
+function RouteComponent() {
+
+
+    return (
+        <div className="page-container">
+           <MoviesLazy/>
+        </div>
+    )
+}

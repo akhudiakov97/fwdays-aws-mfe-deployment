@@ -1,27 +1,34 @@
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
-import { TanStackRouterVite } from "@tanstack/router-vite-plugin";
+import {defineConfig} from 'vite'
+import react from '@vitejs/plugin-react'
+import TanStackRouterVite from "@tanstack/router-plugin/vite";
 
 import federation from "@originjs/vite-plugin-federation";
 
-// https://vitejs.dev/config/
+// https://vite.dev/config/
 export default defineConfig({
-  plugins: [
-    react(),
-    TanStackRouterVite(),
-    federation({
-      name: "wrapper-app",
-      remotes: {
-        watchlist: "https://d3hmhjviw6gexg.cloudfront.net/assets/watchlistRemoteEntry.js",
-        movies: "https://d2wqfbem9r9kp.cloudfront.net/assets/moviesRemoteEntry.js",
-      },
-      shared: ["react", "react-dom", "zustand", "axios"],
-    }),
-  ],
-  build: {
-    modulePreload: false,
-    target: "esnext",
-    minify: false,
-    cssCodeSplit: false,
-  },
-});
+    plugins: [
+        react(),
+        TanStackRouterVite(),
+        federation({
+            name: 'wrapper-app',
+            remotes: {
+                movies: "http://localhost:5001/assets/moviesRemoteEntry.js",
+                angularApp: {
+                    external: 'http://localhost:4201/remoteEntry.js',
+                    externalType: 'url',
+                    format: 'var',
+                }
+            },
+            shared: ['react', 'react-dom', 'zustand']
+        }),
+    ],
+    build: {
+        modulePreload: false,
+        target: "esnext",
+        minify: false,
+        cssCodeSplit: false,
+        rollupOptions: {
+            external: ['angularApp/Watchlist']
+        }
+    },
+})
